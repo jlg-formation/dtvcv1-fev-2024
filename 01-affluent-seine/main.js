@@ -1,4 +1,4 @@
-var chartDom = document.getElementById("main");
+var chartDom = document.querySelector("div.content");
 var myChart = echarts.init(chartDom);
 var option;
 
