@@ -1,0 +1,9 @@
+#Affluent de la Seine
+SELECT ?river ?riverLabel ?length
+WHERE
+{
+  ?river wdt:P403 wd:Q1471. # se jette dans la seine
+  ?river wdt:P2043 ?length
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}
+ORDER BY DESC(?length)
