@@ -1,9 +1,3 @@
-/** @type HTMLElement | null */
-const chartDom = document.querySelector("div.content");
-if (chartDom === null) {
-  throw new Error("div.content not found");
-}
-
 const source = [
   ["Marne", 514],
   ["Oise", 341.1],
@@ -22,29 +16,24 @@ const source = [
   ["Voulzie", 43.9],
   ["Almont", 42.1],
   ["Orvin", 38.1],
-  ["name", "longueur"],
 ];
-source.reverse();
 
-const myChart = echarts.init(chartDom);
-const option = {
-  dataset: {
-    source: source,
-  },
-  grid: { containLabel: true },
-  xAxis: { name: "name" },
-  yAxis: { type: "category" },
-  series: [
-    {
-      type: "bar",
-      encode: {
-        // Map the "amount" column to X axis.
-        x: "longueur",
-        // Map the "product" column to Y axis
-        y: "name",
-      },
-    },
-  ],
-};
+const elt = document.querySelector("div.content");
+if (elt === null) {
+  throw new Error("oups");
+}
 
-option && myChart.setOption(option);
+let templates = "";
+for (const item of source) {
+  const name = item[0];
+  const length = item[1];
+  const template = `
+<div class="item">
+  <div class="name">${name}</div>
+  <div class="bar" style="width: ${length}px">${length}</div>
+</div>
+`;
+  templates = templates + template;
+}
+
+elt.innerHTML = templates;
