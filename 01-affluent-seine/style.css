@@ -3,23 +3,26 @@ body {
 }
 
 div.content {
-  display: flex;
-  flex-flow: column;
-  gap: 0.2em;
-}
-
-div.item {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
+  position: relative;
+  width: 50em;
+  height: 30em;
 }
 
 div.name {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   width: 10em;
   text-align: right;
+  padding: 0.2em;
 }
 
 div.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   width: 10em;
   background-color: tomato;
   color: white;
