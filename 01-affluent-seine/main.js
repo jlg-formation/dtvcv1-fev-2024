@@ -15,16 +15,19 @@ const main = async () => {
     d3.select("p.unit").text(
       state === "length" ? "Longueur en km" : "Debit en m3/s"
     );
-    update(source);
+    update(source, state);
   });
 
-  const update = (source) => {
+  const update = (source, state) => {
+    console.log("state: ", state);
     const height = 1.8;
     const duration = 1000;
 
+    const backgroundColor = state === "length" ? "tomato" : "green";
+
     d3.select("div.content")
       .selectAll("div.name")
-      .data(source)
+      .data(source, (d) => d.name)
       .join("div")
       .classed("name", true)
       .style("transform", (d, i) => `translate(0, ${i * height}em)`)
@@ -36,11 +39,12 @@ const main = async () => {
 
     d3.select("div.content")
       .selectAll("div.bar")
-      .data(source)
+      .data(source, (d) => d.name)
       .join("div")
       .classed("bar", true)
       .style("width", 0)
       .style("transform", (d, i) => `translate(10.5em, ${i * height}em)`)
+      .style("background-color", backgroundColor)
       .text((d) => d[1])
       .style("opacity", 0)
       .transition()
@@ -50,7 +54,7 @@ const main = async () => {
   };
 
   const source = csv.map((line) => [line.riverLabel, line[state]]);
-  update(source);
+  update(source, state);
 };
 
 main();
