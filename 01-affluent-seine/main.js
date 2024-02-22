@@ -27,7 +27,11 @@ d3.select("div.content")
   .join("div")
   .classed("name", true)
   .style("transform", (d, i) => `translate(0, ${i * height}em)`)
-  .text((d) => d[0]);
+  .style("opacity", 0)
+  .text((d) => d[0])
+  .transition()
+  .duration(2000)
+  .style("opacity", 1);
 
 d3.select("div.content")
   .selectAll("div.bar")
