@@ -29,3 +29,9 @@ div.bar {
   padding: 0.2em;
   text-align: right;
 }
+
+button {
+  cursor: pointer;
+  width: 15em;
+  padding: 0.5em 1em;
+}

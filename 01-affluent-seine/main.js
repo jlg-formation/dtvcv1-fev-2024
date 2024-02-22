@@ -9,6 +9,12 @@ const main = async () => {
     state = state === "length" ? "debit" : "length";
     const source = csv.map((line) => [line.riverLabel, line[state]]);
     console.log("source: ", source);
+    button.innerHTML =
+      state === "length" ? "Voir les débits" : "Voir les longueurs";
+
+    d3.select("p.unit").text(
+      state === "length" ? "Longueur en km" : "Debit en m3/s"
+    );
     update(source);
   });
 
