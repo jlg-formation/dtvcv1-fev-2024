@@ -4,10 +4,18 @@ const main = async () => {
 
   const button = document.querySelector("button.switch");
 
+  const getSource = (csv, state) => {
+    const source = csv.map((line) => [line.riverLabel, line[state]]);
+    source.sort((a, b) => {
+      return Math.sign(b[1] - a[1]);
+    });
+    return source;
+  };
+
   let state = "length";
   button.addEventListener("click", () => {
     state = state === "length" ? "debit" : "length";
-    const source = csv.map((line) => [line.riverLabel, line[state]]);
+    const source = getSource(csv, state);
     console.log("source: ", source);
     button.innerHTML =
       state === "length" ? "Voir les débits" : "Voir les longueurs";
@@ -53,7 +61,7 @@ const main = async () => {
       .style("opacity", 1);
   };
 
-  const source = csv.map((line) => [line.riverLabel, line[state]]);
+  const source = getSource(csv, state);
   update(source, state);
 };
 
