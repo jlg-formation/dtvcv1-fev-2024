@@ -1,6 +1,7 @@
 // @ts-nocheck
 const main = async () => {
-  const source = await d3.dsv(",", "./query.csv");
+  const csv = await d3.dsv(",", "./query.csv");
+  const source = csv.map((line) => [line.riverLabel, line.length, line.debit]);
   console.log("source: ", source);
 
   const height = 1.8;
