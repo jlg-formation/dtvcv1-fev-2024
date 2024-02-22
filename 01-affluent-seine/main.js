@@ -49,7 +49,12 @@ const main = async () => {
       .data(source, (d) => d[0])
       .join("div")
       .classed("bar", true)
-      .text((d) => d[1])
+      .html(
+        (d) =>
+          `<span class="${d[1] * coef < 30 ? "outside" : ""}" style="left: ${
+            (d[1] * coef) / 16 + 0.5
+          }em">${d[1]}</span>`
+      )
       .transition()
       .duration(duration)
       .style("background-color", backgroundColor)

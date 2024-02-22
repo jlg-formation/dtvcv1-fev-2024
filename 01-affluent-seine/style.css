@@ -29,6 +29,11 @@ div.bar {
   text-align: right;
 }
 
+div.bar span.outside {
+  color: black;
+  position: relative;
+}
+
 button {
   cursor: pointer;
   width: 15em;
