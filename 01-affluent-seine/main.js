@@ -1,3 +1,4 @@
+// @ts-nocheck
 const source = [
   ["Marne", 514],
   ["Oise", 341.1],
@@ -28,4 +29,6 @@ d3.select("div.content")
   .selectAll("div.bar")
   .data(source)
   .join("div")
+  .classed("bar", true)
+  .style("width", (d) => `${d[1] / 16}em`)
   .text((d) => d[1]);
