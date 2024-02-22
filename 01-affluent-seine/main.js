@@ -1,5 +1,7 @@
 // @ts-nocheck
 const main = async () => {
+  const duration = 1000;
+
   const csv = await d3.dsv(",", "./query.csv");
 
   const button = document.querySelector("button.switch");
@@ -20,16 +22,20 @@ const main = async () => {
     button.innerHTML =
       state === "length" ? "Voir les débits" : "Voir les longueurs";
 
-    d3.select("p.unit").text(
-      state === "length" ? "Longueur en km" : "Debit en m3/s"
-    );
+    d3.select("p.unit")
+      .style("opacity", 0)
+      .text(state === "length" ? "Longueur en km" : "Débit en m3/s")
+      .transition()
+      .duration(duration)
+      .style("opacity", 1);
+
     update(source, state);
   });
 
   const update = (source, state) => {
     console.log("state: ", state);
     const height = 1.8;
-    const duration = 1000;
+
     const coef = state === "length" ? 1 : 3;
 
     const backgroundColor = state === "length" ? "tomato" : "green";
@@ -62,9 +68,11 @@ const main = async () => {
       .data(source, (d) => d[0])
       .join("div")
       .classed("textbar", true)
+      .style("opacity", 0)
       .transition()
       .duration(duration)
       .text((d) => d[1])
+      .style("opacity", 1)
       .style("top", (d, i) => `${i * height}em`)
       .style("left", (d, i) =>
         d[1] * coef < 30 ? `${10.5 + 0.5 + (d[1] * coef) / 16}em` : "10.5em"
