@@ -2,7 +2,36 @@
 const main = async () => {
   const duration = 1000;
 
-  const csv = await d3.dsv(",", "./query.csv");
+  const query = `
+  #Affluent de la Seine
+  SELECT ?river ?riverLabel ?length ?debit
+  WHERE
+  {
+    ?river wdt:P403 wd:Q1471. # se jette dans la seine
+    ?river wdt:P2043 ?length. # a pour longueur
+    ?river wdt:P2225 ?debit. # a pour debit
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+  }
+  ORDER BY DESC(?length)
+`;
+
+  wikidataUrl = "https://query.wikidata.org/bigdata/namespace/wdq/sparql";
+  const url = wikidataUrl + "?query=" + encodeURIComponent(query);
+
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/sparql-results+json",
+    },
+  });
+  const json = await response.json();
+  const csv = json.results.bindings.map((row) => {
+    const result = {};
+    for (const key of Object.keys(row)) {
+      result[key] = row[key].value;
+    }
+    return result;
+  });
+  console.log("csv: ", csv);
 
   const button = document.querySelector("button.switch");
 
