@@ -1,9 +1,10 @@
 #Affluent de la Seine
-SELECT ?river ?riverLabel ?length
+SELECT ?river ?riverLabel ?length ?debit
 WHERE
 {
   ?river wdt:P403 wd:Q1471. # se jette dans la seine
-  ?river wdt:P2043 ?length
+  ?river wdt:P2043 ?length. # a pour longueur
+  ?river wdt:P2225 ?debit. # a pour debit
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
 }
 ORDER BY DESC(?length)
