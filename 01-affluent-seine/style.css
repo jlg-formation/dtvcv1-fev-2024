@@ -21,9 +21,9 @@ div.name {
 div.bar {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 10.5em;
 
-  width: 10em;
+  width: 0;
   color: white;
   padding: 0.2em;
   text-align: right;
