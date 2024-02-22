@@ -49,16 +49,27 @@ const main = async () => {
       .data(source, (d) => d[0])
       .join("div")
       .classed("bar", true)
-      .html(
-        (d) =>
-          `<span class="${d[1] * coef < 30 ? "outside" : ""}" style="left: ${
-            (d[1] * coef) / 16 + 0.5
-          }em">${d[1]}</span>`
-      )
+      .html("&nbsp;")
       .transition()
       .duration(duration)
       .style("background-color", backgroundColor)
+      .style("color", backgroundColor)
       .style("top", (d, i) => `${i * height}em`)
+      .style("width", (d) => `${(d[1] * coef) / 16}em`);
+
+    d3.select("div.content")
+      .selectAll("div.textbar")
+      .data(source, (d) => d[0])
+      .join("div")
+      .classed("textbar", true)
+      .transition()
+      .duration(duration)
+      .text((d) => d[1])
+      .style("top", (d, i) => `${i * height}em`)
+      .style("left", (d, i) =>
+        d[1] * coef < 30 ? `${10.5 + 0.5 + (d[1] * coef) / 16}em` : "10.5em"
+      )
+      .style("color", (d, i) => (d[1] * coef < 30 ? `black` : "white"))
       .style("width", (d) => `${(d[1] * coef) / 16}em`);
   };
 
