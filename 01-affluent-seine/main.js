@@ -49,10 +49,10 @@ const main = async () => {
       .data(source, (d) => d[0])
       .join("div")
       .classed("bar", true)
-      .style("background-color", backgroundColor)
       .text((d) => d[1])
       .transition()
       .duration(duration)
+      .style("background-color", backgroundColor)
       .style("top", (d, i) => `${i * height}em`)
       .style("width", (d) => `${(d[1] * coef) / 16}em`);
   };
